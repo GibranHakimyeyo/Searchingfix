@@ -1,0 +1,63 @@
+class Obat:
+    def __init__(self, kode, nama):
+        self.kode = kode
+        self.nama = nama
+
+# Inisialisasi daftar obat
+daftar_obat = []
+
+def tambahkan_obat():
+    kode = int(input("Masukkan kode obat: "))
+    nama = input("Masukkan nama obat: ")
+    obat_baru = Obat(kode, nama)
+    daftar_obat.append(obat_baru)
+    daftar_obat.sort(key=lambda x: x.kode)  # Mengurutkan berdasarkan kode obat
+
+def tampilkan_obat():
+    if not daftar_obat:
+        print("Daftar obat kosong.")
+    else:
+        print("Daftar obat:")
+        for obat in daftar_obat:
+            print(f"Kode: {obat.kode}, Nama: {obat.nama}")
+
+def cari_obat():
+    kode_cari = int(input("Masukkan kode obat yang ingin dicari: "))
+    low = 0
+    high = len(daftar_obat) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if daftar_obat[mid].kode == kode_cari:
+            return daftar_obat[mid]
+        elif daftar_obat[mid].kode < kode_cari:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return None
+
+# Contoh penggunaan
+if __name__ == "__main__":
+    while True:
+        print("\nPilih operasi yang ingin dilakukan:")
+        print("1. Tambahkan obat")
+        print("2. Tampilkan semua obat")
+        print("3. Cari obat berdasarkan kode")
+        print("4. Keluar")
+
+        pilihan = input("Masukkan pilihan (1/2/3/4): ")
+
+        if pilihan == "1":
+            tambahkan_obat()
+        elif pilihan == "2":
+            tampilkan_obat()
+        elif pilihan == "3":
+            hasil_pencarian = cari_obat()
+            if hasil_pencarian:
+                print(f"Obat dengan kode {hasil_pencarian.kode} ditemukan: {hasil_pencarian.nama}")
+            else:
+                print("Obat tidak ditemukan.")
+        elif pilihan == "4":
+            print("Terima kasih!")
+            break
+        else:
+            print("Pilihan tidak valid. Silakan masukkan pilihan yang benar.")
