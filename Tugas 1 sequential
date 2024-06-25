@@ -1,0 +1,75 @@
+def tambah_stok(arr_bahan_makanan, bahan_makanan, jumlah):
+    # Cek apakah bahan makanan sudah ada di dalam array
+    for i in range(len(arr_bahan_makanan)):
+        if arr_bahan_makanan[i]['nama'] == bahan_makanan:
+            # Jika ditemukan, tambahkan jumlah stok
+            arr_bahan_makanan[i]['jumlah'] += jumlah
+            print(f"{bahan_makanan} berhasil ditambahkan ke dalam stok dengan jumlah {jumlah}.")
+            print(f"Bahan makanan {bahan_makanan} ditemukan pada indeks {i}.")
+            return i
+def clearscreen():
+    # Bersihkan layar tergantung pada platform sistem operasi
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    # Jika bahan makanan belum ada, tambahkan bahan makanan baru ke dalam array
+    arr_bahan_makanan.append({'nama': bahan_makanan, 'jumlah': jumlah})
+    idx = len(arr_bahan_makanan) - 1  # Indeks baru adalah panjang array dikurangi satu
+    print(f"{bahan_makanan} berhasil ditambahkan ke dalam stok dengan jumlah {jumlah}.")
+    print(f"Bahan makanan {bahan_makanan} ditambahkan pada indeks {idx}.")
+    return idx
+
+def cari_stok(arr_bahan_makanan, bahan_makanan):
+    # Cari bahan makanan dalam array
+    for i in range(len(arr_bahan_makanan)):
+        if arr_bahan_makanan[i]['nama'] == bahan_makanan:
+            return i, arr_bahan_makanan[i]['jumlah']
+    
+    # Jika bahan makanan tidak ditemukan
+    return -1, 0
+
+def tampilkan_stok(arr_bahan_makanan):
+    if not arr_bahan_makanan:
+        print("Stok bahan makanan kosong.")
+    else:
+        print("Daftar Bahan Makanan di Stok:")
+        for i, bahan_makanan in enumerate(arr_bahan_makanan):
+            print(f"{i+1}. {bahan_makanan['nama']} - Jumlah: {bahan_makanan['jumlah']}")
+
+# Inisialisasi array untuk menyimpan stok bahan makanan dengan data default
+stok_bahan_makanan = [
+    {'nama': 'saus kecap', 'jumlah': 2},
+    {'nama': 'garam', 'jumlah': 2}
+]
+
+# Input bahan makanan dan jumlah bahan makanan
+while True:
+    clearscreen() 
+    print("\nMenu:")
+    print("1. Tambah bahan makanan")
+    print("2. Cari bahan makanan")
+    print("3. Tampilkan stok")
+    print("4. Keluar")
+    pilihan = input("Masukkan pilihan Anda (1/2/3/4): ")
+
+    if pilihan == '1':
+        bahan_makanan = input("Masukkan nama bahan makanan: ")
+        jumlah = int(input("Masukkan jumlah bahan makanan: "))
+        tambah_stok(stok_bahan_makanan, bahan_makanan, jumlah)
+    
+    elif pilihan == '2':
+        bahan_makanan = input("Masukkan nama bahan makanan yang ingin dicari: ")
+        index, jumlah = cari_stok(stok_bahan_makanan, bahan_makanan)
+        if index != -1:
+            print(f"{bahan_makanan} ditemukan pada indeks {index} dengan jumlah {jumlah}.")
+        else:
+            print(f"{bahan_makanan} tidak ditemukan dalam stok.")
+    
+    elif pilihan == '3':
+        tampilkan_stok(stok_bahan_makanan)
+    
+    elif pilihan == '4':
+        print("Terima kasih!")
+        break
+    
+    else:
+        print("Pilihan tidak valid. Silakan pilih 1, 2, 3, atau 4.")
